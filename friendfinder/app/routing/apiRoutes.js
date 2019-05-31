@@ -9,6 +9,9 @@ module.exports = function(app) {
     
     app.post("/api/friends", function(req,res) {
         //code for total difference from the survey
+        var totalDifference = (req.body.scores)
+        var scores = {};
+        var preScore = 50;
         
         res.send(req.body)
     })
