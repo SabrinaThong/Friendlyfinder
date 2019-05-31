@@ -12,7 +12,8 @@ module.exports = function(app) {
         var totalDifference = (req.body.scores)
         var scores = {};
         var preScore = 50;
-        
+        var userName  = {};
+        var userImage = {};
         res.send(req.body)
     })
    
