@@ -9,7 +9,7 @@ app.use(express.json());
 
 //possibility of adding content
 
-app.get("/home", function(req, res) {
+app.get("/", function(req, res) {
     res.sendFile(path.join(__dirname, "friendfinder\app\public\home.html"));
 });
 
