@@ -9,13 +9,10 @@ app.use(express.json());
 
 //possibility of adding content
 
-app.get("/", function(req, res) {
-    res.sendFile(path.join(__dirname, "friendfinder\app\public\home.html"));
-});
 
-app.get("/survey", function(req, res) {
-    res.sendFile(path.join(__dirname, "friendfinder\app\public\survey.html"));
-});
+const apiRoutes = require("\routing\apiRoutes.js");
+app.use("\routing\apiRoutes",apiRoutes);
+
 
 app.listen(PORT, function() {
     console.log("App listening on PORT " + PORT);
