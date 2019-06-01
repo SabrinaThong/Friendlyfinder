@@ -23,7 +23,7 @@
             <br>
             <div class="form-group">
                 <label for="image">Image (required)</label>
-                <input type="text" name="" id="photo" class="form-control" required>
+                <input type="text" name="" id="image" class="form-control" required>
             </div>
         </form>
 
@@ -181,7 +181,10 @@
               </button>
             </div>
             <div class="modal-body" id="bodyModal">
-              
+                    <h2 id="nameFriend"></h2>
+                    <img id="imageFriend" src="#">
+                  
+                    
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -197,14 +200,14 @@
     // Listener for submit button click
     $('#golfFriend').on('click', function(event) {
         var valid = true;
-		if($("#name").val() === "" || $("#photo").val() === "") {
+		if($("#name").val() === "" || $("#image").val() === "") {
 			valid = false;
 		} else if($("#Q1").val() === "empty" || $("#Q2").val() === "empty" || $("#Q3").val() === "empty" || $("#Q4").val() === "empty" || $("#Q5").val() === "empty" || $("#Q6").val() === "empty" || $("#Q7").val() === "empty" || $("#Q8").val() === "empty" || $("#Q9").val() === "empty" || $("#Q10").val() === "empty") {
 			valid = false;
 		}
         // set responses to local variables
         var name = $('#name').val().trim();
-        var photo = $('#photo').val();
+        var image = $('#image').val();
         var Q1 = parseInt($('#Q1').val());
         var Q2 = parseInt($('#Q2').val());
         var Q3 = parseInt($('#Q3').val());
@@ -218,7 +221,7 @@
         // Set data to be sent to server
         var userData = {
             name: name,
-            photo: photo,
+            image: image,
             scores: [
                 Q1,
                 Q3,
@@ -236,7 +239,7 @@
         if(valid === true) {
 			var newUser = {
 				name: $("#name").val().trim(),
-				photo: $("#photo").val().trim(),
+				image: $("#image").val().trim(),
 				scores: [
 					$("#Q1").val(),
 					$("#Q2").val(),
@@ -249,13 +252,14 @@
 					$("#Q9").val(),
 					$("#Q10").val()
 				]
-			};
-			var currentURL = window.location.origin;
+            };
+              
+			
 			// Ajax call for receiving response after POST req
-			$.post(currentURL + "/api/friends", newUser, function(data) {
-				$("#name").text(data.name);
-				$("#photo").attr("src", data.photo);
-				$("#bestFriendModal").modal("toggle");
+			$.post("/app/data/friends", newUser, function(data) {
+				$("#nameFriend").text(data.name);
+				$("#imageFriend").attr("src", data.photo);
+				$("#exampleModal").modal("toggle");
 			});
 		} else {
 			// If a required field is missing, show alert
