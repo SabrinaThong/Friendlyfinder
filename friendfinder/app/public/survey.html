@@ -256,7 +256,7 @@
               
 			
 			// Ajax call for receiving response after POST req
-			$.post("/app/data/friends", newUser, function(data) {
+			$.post("friendfinder\app\data\friends.js", newUser, function(data) {
 				$("#nameFriend").text(data.name);
 				$("#imageFriend").attr("src", data.photo);
 				$("#exampleModal").modal("toggle");
