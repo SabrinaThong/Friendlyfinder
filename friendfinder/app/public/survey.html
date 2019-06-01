@@ -257,8 +257,8 @@
 			
 			// Ajax call for receiving response after POST req
 			$.post("friendfinder\app\data\friends.js", newUser, function(data) {
-				$("#nameFriend").text(data.name);
-				$("#imageFriend").attr("src", data.photo);
+				$("#nameFriend").text(data.userName);
+				$("#imageFriend").attr("src", data.userImage);
 				$("#exampleModal").modal("toggle");
 			});
 		} else {
