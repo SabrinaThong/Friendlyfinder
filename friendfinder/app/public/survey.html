@@ -32,6 +32,7 @@
             <br>
 
             <!-- Creating survey questions-->
+            <section id="friend-form">
             <section class="form-group">
             <h4>Question 1</h4>
             <p>Tiger Woods is the best professional golfer ever</p>
@@ -151,7 +152,7 @@
 
             <section class="form-group" >
                 <h4>Question 10</h4>
-            <p>I think driver is the best golf club we have</p>
+            <p>I think the driver is the best golf club ever</p>
                 <select id="Q10">
                     <option value="select">Select Option</option>
                     <option value="1">1 (Strongly Disagree)</option>
@@ -161,11 +162,12 @@
                     <option value="4">5 (Strongly Agree)</option>
                 </select>
             </section>
+        </section>
         </div>
         <br>
 
   <!-- Creating Modal -->
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" id="golfFriend">
         Find My Golf Friend!
     </button>
       
@@ -191,10 +193,75 @@
     </div>
     
 </body>
+<script type="text/javascript">
+    // Listener for submit button click
+    $('#golfFriend').on('click', function(event) {
+        var valid = true;
+		if($("#name").val() === "" || $("#photo").val() === "") {
+			valid = false;
+		} else if($("#Q1").val() === "empty" || $("#Q2").val() === "empty" || $("#Q3").val() === "empty" || $("#Q4").val() === "empty" || $("#Q5").val() === "empty" || $("#Q6").val() === "empty" || $("#Q7").val() === "empty" || $("#Q8").val() === "empty" || $("#Q9").val() === "empty" || $("#Q10").val() === "empty") {
+			valid = false;
+		}
+        // set responses to local variables
+        var name = $('#name').val().trim();
+        var photo = $('#photo').val();
+        var Q1 = parseInt($('#Q1').val());
+        var Q2 = parseInt($('#Q2').val());
+        var Q3 = parseInt($('#Q3').val());
+        var  Q4 = parseInt($('#Q4').val());
+        var  Q5 = parseInt($('#Q5').val());
+        var  Q6 = parseInt($('#Q6').val());
+        var  Q7 = parseInt($('#Q7').val());
+        var  Q8 = parseInt($('#Q8').val());
+        var  Q9 = parseInt($('#Q9').val());
+        var  Q10 = parseInt($('#Q10').val());
+        // Set data to be sent to server
+        var userData = {
+            name: name,
+            photo: photo,
+            scores: [
+                Q1,
+                Q3,
+                Q3,
+                Q4,
+                Q5,
+                Q6,
+                Q7,
+                Q8,
+                Q9,
+                Q10
+            ]
+        };
+        // If responses are valid...
+        if(valid === true) {
+			var newUser = {
+				name: $("#name").val().trim(),
+				photo: $("#photo").val().trim(),
+				scores: [
+					$("#Q1").val(),
+					$("#Q2").val(),
+					$("#Q3").val(),
+					$("#Q4").val(),
+					$("#Q5").val(),
+					$("#Q6").val(),
+					$("#Q").val(),
+					$("#Q8").val(),
+					$("#Q9").val(),
+					$("#Q10").val()
+				]
+			};
+			var currentURL = window.location.origin;
+			// Ajax call for receiving response after POST req
+			$.post(currentURL + "/api/friends", newUser, function(data) {
+				$("#name").text(data.name);
+				$("#photo").attr("src", data.photo);
+				$("#bestFriendModal").modal("toggle");
+			});
+		} else {
+			// If a required field is missing, show alert
+			alert("Survey is incomplete!");
+		}
+	});
 
-<script>
-
-
-
-</script>
+    </script>
 </html>

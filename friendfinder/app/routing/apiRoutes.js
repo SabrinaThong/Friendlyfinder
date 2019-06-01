@@ -28,8 +28,8 @@ function friendList(app) {
             totalDifference = scores.reduce(add,0);
 
             if (totalDifference < preScore) {
-                userName = friendList.name;
-                userImage = friendList.photo;
+                userName = friends.name;
+                userImage = friends.photo;
             }
         });
 
