@@ -1,7 +1,7 @@
-var friends = require("..data/friends");
+var friends = require("../data/friends");
 
 
-module.exports = function(app) {
+function friendList(app) {
     //getting info from friends.js
     app.get("/api/friends", function(req,res) {
         res.json(friends);
@@ -9,12 +9,37 @@ module.exports = function(app) {
     
     app.post("/api/friends", function(req,res) {
         //code for total difference from the survey
-        var totalDifference = (req.body.scores)
-        var scores = {};
-        var preScore = 50;
+        var totalDifference = (req.body.scores);
         var userName  = {};
         var userImage = {};
-        res.send(req.body)
-    })
+
+        friends.forEach(function(friendList) {
+            var scores = {};
+            var preScore = 50;
+
+            function add (total, num) {
+                return total + num;
+            };
+            
+            for (var i = 0; i<friendList.length;i++) {
+                scores.push(Math.abs(parseInt(reg.body.scores[i]) - parseInt(friendList.scores[i])));
+            }
+
+            totalDifference = scores.reduce(add,0);
+
+            if (totalDifference < preScore) {
+                userName = friendList.name;
+                userImage = friendList.photo;
+            }
+        });
+
+        res.json({
+            name: userName,
+            photo: userImage,
+        });
+        res.send(req.body);
+    });
    
-}
+};
+
+module.exports = friendList;

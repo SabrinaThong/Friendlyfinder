@@ -10,8 +10,8 @@ app.use(express.json());
 //possibility of adding content
 
 
-const apiRoutes = require("\routing\apiRoutes.js");
-app.use("\routing\apiRoutes",apiRoutes);
+require("./app/routing/apiRoutes")(app);
+
 
 
 app.listen(PORT, function() {
